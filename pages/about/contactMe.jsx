@@ -1,36 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
-function ContactMe({message}) {
+function ContactMe({ message }) {
   return (
     <div>
-      <h1>{message.title}</h1>
+      {message.map((item) => {
+        return(
+        <div key={item.id}>
+          {/* <img src={item.thumbnailUrl} alt="img" width={100} height={100} /> */}
+          {/* <Image src={item.url} width={100} height={100}/> */}
+          <h1>{item.title}</h1>
+        </div>)
+      })}
     </div>
-  )
+  );
 }
-export async function getServerSideProps(){
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+export async function getServerSideProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/photos");
   const data = await res.json();
 
   return {
-    props:{
-      message : data
-    }
-  }
+    props: {
+      message: data,
+    },
+  };
 }
 export default ContactMe;
 
 // export async function getStaticProps() {
 //   const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
 //   const data = await res.json();
-  
+
 //   return {
 //     props:{
 //       message:data
 //     }
 //   }
 // }
-
-
 
 // function ContactMe () {
 //   const [message , setMessage] = useState([]);
